@@ -7,7 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import transforms
 from swinir import SwinIR
 import tomosipo as ts
-from ts_algorithms import fdk, nag_ls
+from ts_algorithms import nag_ls
 
 ################################################### Folder path & parameters ##########################################
 b_size = 1
@@ -87,11 +87,9 @@ with torch.no_grad():
 
         filename = noisy_files_test[i].split('/')[-1]
         denoised_sino = denoised.transpose(1,0,2)*700
-        #np.save('/media/ee22s501/HDD/data_c2/sino/val_out/' + filename, denoised_sino)#temp
 
         sino = torch.from_numpy(denoised_sino).cuda()
-        #recon_n = fdk(A, sino)
-        recon_n = nag_ls(A, sino, num_iterations=18, max_eigen=106742.3828125)#18_for_low
+        recon_n = nag_ls(A, sino, num_iterations=18, max_eigen=106742.3828125)
 
         recon_n = recon_n.to(device)
         recon_n = recon_n.permute(2,0,1)
@@ -107,8 +105,8 @@ with torch.no_grad():
         total_mse1 += mse1.item()
 
         filename_save = filename.replace('sino', 'ct')
-        #np.save(output_folder + filename_save, recon)
+        #np.save(output_folder + filename_save, recon) #Uncomment this line to save the output
 
 average_mse1 = total_mse1 / len(test_loader)
 print('Number of test samples: {}'.format(len(test_loader)))
-print('Average MSE on test dataset: {:.15f}'.format(1000*average_mse1))
+print('Average MSE on test dataset: {:.15f}'.format(average_mse1))
