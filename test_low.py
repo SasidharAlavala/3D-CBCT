@@ -11,11 +11,11 @@ from ts_algorithms import nag_ls
 
 ################################################### Folder path & parameters ##########################################
 b_size = 1
-noisy_files_test = [f"/media/ee22s501/HDD/data_c2/sino/val_sino_low/{i:04d}_sino_low_dose.npy".format(i) for i in range(801,901)]
-output_folder = '/media/ee22s501/HDD/data_c2/img/val_out/'
-folder_ct = '/media/ee22s501/HDD/data_c2/img/val_gt/'
-model_path_1 = 'low_sino_231.pth'
-model_path_2 = 'low_ct_117.pth'
+noisy_files_test = [f"/media/ee22s501/HDD/data/sino_test_low/{i:04d}_sino_low_dose.npy".format(i) for i in range(801,901)]
+output_folder = '/media/ee22s501/HDD/data/ct_output_low/'
+folder_ct = '/media/ee22s501/HDD/data/ct_groundtruth/'
+model_path_1 = '/media/ee22s501/HDD/data/model_zoo/low_sino_231.pth'
+model_path_2 = '/media/ee22s501/HDD/data/model_zoo/low_ct_117.pth'
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 image_size = [300, 300, 300]
