@@ -105,7 +105,7 @@ with torch.no_grad():
         total_mse1 += mse1.item()
 
         filename_save = filename.replace('sino', 'ct')
-        #np.save(output_folder + filename_save, recon) #Uncomment this line to save the output
+        np.save(output_folder + filename_save, recon)
 
 average_mse1 = total_mse1 / len(test_loader)
 print('Number of test samples: {}'.format(len(test_loader)))
